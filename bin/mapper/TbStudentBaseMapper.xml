@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hand.demo.dao.TbStudentBaseMapper" >
+  <resultMap id="BaseResultMap" type="com.hand.demo.entity.TbStudentBase" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="student_id" property="studentId" jdbcType="BIGINT" />
+    <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+    <result column="base_id" property="baseId" jdbcType="INTEGER" />
+    <result column="base_name" property="baseName" jdbcType="VARCHAR" />
+    <result column="base_score" property="baseScore" jdbcType="INTEGER" />
+    <result column="base_date" property="baseDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, student_id, student_name, base_id, base_name, base_score, base_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hand.demo.entity.TbStudentBaseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_student_base
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_student_base
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_student_base
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hand.demo.entity.TbStudentBaseExample" >
+    delete from tb_student_base
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hand.demo.entity.TbStudentBase" >
+    insert into tb_student_base (id, student_id, student_name, 
+      base_id, base_name, base_score, 
+      base_date)
+    values (#{id,jdbcType=BIGINT}, #{studentId,jdbcType=BIGINT}, #{studentName,jdbcType=VARCHAR}, 
+      #{baseId,jdbcType=INTEGER}, #{baseName,jdbcType=VARCHAR}, #{baseScore,jdbcType=INTEGER}, 
+      #{baseDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hand.demo.entity.TbStudentBase" >
+    insert into tb_student_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="baseName != null" >
+        base_name,
+      </if>
+      <if test="baseScore != null" >
+        base_score,
+      </if>
+      <if test="baseDate != null" >
+        base_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="baseName != null" >
+        #{baseName,jdbcType=VARCHAR},
+      </if>
+      <if test="baseScore != null" >
+        #{baseScore,jdbcType=INTEGER},
+      </if>
+      <if test="baseDate != null" >
+        #{baseDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hand.demo.entity.TbStudentBaseExample" resultType="java.lang.Integer" >
+    select count(*) from tb_student_base
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_student_base
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.studentId != null" >
+        student_id = #{record.studentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.studentName != null" >
+        student_name = #{record.studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.baseId != null" >
+        base_id = #{record.baseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.baseName != null" >
+        base_name = #{record.baseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.baseScore != null" >
+        base_score = #{record.baseScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.baseDate != null" >
+        base_date = #{record.baseDate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_student_base
+    set id = #{record.id,jdbcType=BIGINT},
+      student_id = #{record.studentId,jdbcType=BIGINT},
+      student_name = #{record.studentName,jdbcType=VARCHAR},
+      base_id = #{record.baseId,jdbcType=INTEGER},
+      base_name = #{record.baseName,jdbcType=VARCHAR},
+      base_score = #{record.baseScore,jdbcType=INTEGER},
+      base_date = #{record.baseDate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hand.demo.entity.TbStudentBase" >
+    update tb_student_base
+    <set >
+      <if test="studentId != null" >
+        student_id = #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="studentName != null" >
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=INTEGER},
+      </if>
+      <if test="baseName != null" >
+        base_name = #{baseName,jdbcType=VARCHAR},
+      </if>
+      <if test="baseScore != null" >
+        base_score = #{baseScore,jdbcType=INTEGER},
+      </if>
+      <if test="baseDate != null" >
+        base_date = #{baseDate,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hand.demo.entity.TbStudentBase" >
+    update tb_student_base
+    set student_id = #{studentId,jdbcType=BIGINT},
+      student_name = #{studentName,jdbcType=VARCHAR},
+      base_id = #{baseId,jdbcType=INTEGER},
+      base_name = #{baseName,jdbcType=VARCHAR},
+      base_score = #{baseScore,jdbcType=INTEGER},
+      base_date = #{baseDate,jdbcType=DATE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
